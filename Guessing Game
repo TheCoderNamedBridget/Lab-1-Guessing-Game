@@ -1,0 +1,88 @@
+
+/*
+*Author: Bridget Naylor
+*Date: 1/23/20
+*Description: Simple guessing game. 
+*Randomly generates number and checks user input against correct number
+*/
+import java.util.Scanner;
+import java.lang.Math;
+
+class GuessingGame {
+  //number user is trying to guess
+  
+
+  /*Scans in user input and checks to see if it matches the randomly generated number
+  */
+  public static void checkNumberGuessed(){
+	int NUM_TO_GUESS = (int)(Math.random() * 100 + 1);
+    Scanner in = new Scanner( System.in );
+
+    System.out.println("I'm thinking of a number. Guess a value(1-100): ");
+    
+    int numTries = 0;
+    
+    int userGuess = 0;
+
+    String userGuessString = "";
+
+    while ( userGuess != NUM_TO_GUESS ){
+      
+      boolean isInt = in.hasNextInt();
+
+      if ( isInt ){
+         
+        userGuess = in.nextInt();
+
+      } else {
+         
+        userGuessString = in.next();
+         
+      }
+
+      if ( isInt && userGuess > 0 && userGuess < 101 ){//separates valid and invalid inputs
+
+        if ( userGuess < NUM_TO_GUESS ){
+
+          System.out.println( "Too Low. Guess Again: " + userGuess );
+
+          numTries ++;
+
+        } else if ( userGuess > NUM_TO_GUESS ){
+
+          System.out.println( "Too High. Guess Again: " + userGuess );
+
+          numTries ++;
+
+        } else if (userGuess == NUM_TO_GUESS){
+
+          numTries ++;
+          if ( numTries ==  1){
+
+            System.out.println( "Correct! You got it in " + numTries + " try." );
+
+          } else {
+
+            System.out.println( "Correct! You got it in " + numTries + " tries." );
+            
+          }
+          
+          break;
+
+        }
+
+      } else {
+
+        System.out.println( "Invalid. Guess Again: " + userGuessString );
+
+      }
+    }
+  }
+  
+
+  public static void main(String[] args) {
+	  
+    checkNumberGuessed();
+    
+  }
+}
